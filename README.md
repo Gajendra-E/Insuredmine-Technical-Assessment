@@ -1,4 +1,11 @@
-InsuredMine Technical Assessment
+# InsuredMine Technical Assessment
+Node.js backend technical assessment implemented using JavaScript, Express.js, MongoDB, and Worker Threads.
+
+Prerequisites
+Node.js 18+
+MongoDB
+npm
+
 # Installation
 
 Clone the project:
@@ -133,3 +140,15 @@ pm2 status
 View logs:
 
 pm2 logs insuredmine-api
+
+# Assumptions
+
+The following assumptions were made because clarification was not received before the submission deadline:
+
+Username
+The provided sheet does not contain a separate username field.
+The firstname field is used as the username for the policy search API.
+
+Example:
+
+GET /api/policies/search?username=John
