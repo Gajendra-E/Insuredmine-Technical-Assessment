@@ -70,23 +70,6 @@ const searchPoliciesByUsername = async (req, res) => {
           preserveNullAndEmptyArrays: true
         }
       },
-
-      {
-        $lookup: {
-          from: "accounts",
-          localField: "policies.accountId",
-          foreignField: "_id",
-          as: "account"
-        }
-      },
-
-      {
-        $unwind: {
-          path: "$account",
-          preserveNullAndEmptyArrays: true
-        }
-      },
-
       {
         $project: {
           _id: 0,
@@ -102,14 +85,8 @@ const searchPoliciesByUsername = async (req, res) => {
             policyNumber: "$policies.policyNumber",
             startDate: "$policies.policyStartDate",
             endDate: "$policies.policyEndDate",
-            policyType: "$policies.policyType",
-            premiumAmount: "$policies.premiumAmount"
           },
-
-          account: "$account.name",
-
           category: "$lob.categoryName",
-
           carrier: "$carrier.companyName"
         }
       }
@@ -236,22 +213,12 @@ const getPoliciesByUser = async (req, res) => {
           policies: {
             $push: {
               policyNumber: "$policies.policyNumber",
-
               policyStartDate:
                 "$policies.policyStartDate",
-
               policyEndDate:
                 "$policies.policyEndDate",
-
-              policyType:
-                "$policies.policyType",
-
-              premiumAmount:
-                "$policies.premiumAmount",
-
               category:
                 "$lob.categoryName",
-
               carrier:
                 "$carrier.companyName"
             }
@@ -274,17 +241,11 @@ const getPoliciesByUser = async (req, res) => {
       {
         $project: {
           _id: 0,
-
           userId: "$_id",
-
           firstName: 1,
-
           email: 1,
-
           phone: 1,
-
           policyCount: 1,
-
           policies: 1
         }
       }
